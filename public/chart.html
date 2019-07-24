@@ -1,56 +1,79 @@
-
 <html>
 
 <head>
    <title>Forex visualization</title>
    <style>
-   body {
-    background: url("./assets/BG.jpg");
-    background-size: 1600px 800px;
-    background-repeat: no-repeat;
-   }
-   h1 { color:#2efaf0; }
-   p{
-      font-size: 19px;
-      color : #2efaf0;
-      font-style: oblique;
-      font-weight: bold;
-   }
-   button {
-      border-radius: 15px;
-      font-size: 17px;
-   }
+      body {
+         background: url("./assets/BG.jpg");
+         background-size: 1600px 800px;
+         background-repeat: no-repeat;
+      }
+
+      h1 {
+         color: #2efaf0;
+      }
+
+      p {
+         font-size: 19px;
+         color: #2efaf0;
+         font-style: oblique;
+         font-weight: bold;
+      }
+
+      button {
+         border-radius: 15px;
+         font-size: 17px;
+      }
    </style>
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
-   </script>
-   <script type="text/javascript">
-      google.charts.load('current', { packages: ['corechart', 'line'] });  
-   </script>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript"> google.charts.load('current', { packages: ['corechart', 'line'] }); </script>
 </head>
 
 <body>
-   <div><br><center><h1>Historical Rate Visualization</h1></center></div><br>
+   </br>
    <div>
-         <form>
-               <p>Base Currency&nbsp&nbsp&nbsp&nbsp<input type="search"  id="basevalue">&nbsp&nbsp&nbsp&nbsp
-               Quote Currency&nbsp&nbsp&nbsp<input type="search"  id="quotevalue">&nbsp&nbsp&nbsp&nbsp
-               From Date&nbsp&nbsp&nbsp<input type="text" placeholder="YYYY-MM-DD" id="from">&nbsp&nbsp&nbsp&nbsp
-               To Date&nbsp&nbsp&nbsp&nbsp<input type="text"  placeholder="YYYY-MM-DD"  id="to">&nbsp&nbsp&nbsp&nbsp
-               <button type="button" onclick="drawChart()">Search</button></p><br><br><br>
-         </form>
+      <center>
+         <h1>Historical Rate Visualization</h1>
+      </center>
    </div>
-   <div id="container" style="width: 650px; height: 400px; margin: 0 auto">
+   </br>
+    </br>
+   <div class="row">
+      <form class="col s12">
+         <!-- <p>Base Currency&nbsp&nbsp&nbsp&nbsp<input type="search" id="basevalue">&nbsp&nbsp&nbsp&nbsp
+            Quote Currency&nbsp&nbsp&nbsp<input type="search" id="quotevalue">&nbsp&nbsp&nbsp&nbsp
+            From Date&nbsp&nbsp&nbsp<input type="text" placeholder="YYYY-MM-DD" id="from">&nbsp&nbsp&nbsp&nbsp
+            To Date&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="YYYY-MM-DD" id="to">&nbsp&nbsp&nbsp&nbsp
+            <button type="button" onclick="drawChart()">Search</button></p><br><br><br> -->
+         <div class="col s2">
+            <p>Base Currency</p><input type="search" id="basevalue">
+         </div>
+         <div class="col s2">
+            <p>Quote Currency</p><input type="search" id="quotevalue">
+         </div>
+         <div class="col s2">
+            <p>From Date</p><input type="text" placeholder="YYYY-MM-DD" id="from">
+         </div>
+         <div class="col s2">
+            <p>To Date</p><input type="text" placeholder="YYYY-MM-DD" id="to">
+         </div>
+         <div class="col s4">
+               <button class="btn waves-effect waves-light" type="button" onclick="drawChart()">Submit</button>
+               <button  class="btn waves-effect waves-light" type="button" onclick="window.location.href = '/intro.html';">Back</button>
+         </div </form> </div> <div id="container" style="width: 650px; height: 400px; margin: 50 auto">
    </div>
    <script language="JavaScript">
       function drawChart() {
          // Define the chart to be drawn.
-         var base=document.getElementById("basevalue").value;
-         var quote=document.getElementById("quotevalue").value;
-         var from=document.getElementById("from").value;
-         var to=document.getElementById("to").value;
+         var base = document.getElementById("basevalue").value;
+         var quote = document.getElementById("quotevalue").value;
+         var from = document.getElementById("from").value;
+         var to = document.getElementById("to").value;
 
-        
-         url = 'https://api.exchangeratesapi.io/history?start_at='+from+'&end_at='+to+'&base='+base+'&symbols='+quote;
+
+         url = 'https://api.exchangeratesapi.io/history?start_at=' + from + '&end_at=' + to + '&base=' + base + '&symbols=' + quote;
          console.log(url);
          var request = new XMLHttpRequest();
 
@@ -62,7 +85,7 @@
 
 
                var inrlist = [];
-               var datelist=[];
+               var datelist = [];
                for (let [key, value] of Object.entries(data.rates)) {
                   console.log(`key=${key} value=${value[quote]}`);
                   datelist.push(key);
@@ -71,31 +94,30 @@
                }
 
                var data = new google.visualization.DataTable();
-         data.addColumn('string', 'Date');
-         data.addColumn('number', base+'/'+quote);
-         for(var i=0;i<inrlist.length;i++)
-         {
-         data.addRows([[datelist[i], inrlist[i]]]);
-         console.log(datelist[i],inrlist[i]);
-         }
-         
+               data.addColumn('string', 'Date');
+               data.addColumn('number', base + '/' + quote);
+               for (var i = 0; i < inrlist.length; i++) {
+                  data.addRows([[datelist[i], inrlist[i]]]);
+                  console.log(datelist[i], inrlist[i]);
+               }
 
-         // Set chart options
-         var options = {
-            
-            hAxis: {
-               title: 'Day'
-            },
-            vAxis: {
-               title: 'Forex Rate'
-            },
-            'width': 650,
-            'height': 400
-         };
 
-         // Instantiate and draw the chart.
-         var chart = new google.visualization.LineChart(document.getElementById('container'));
-         chart.draw(data, options);
+               // Set chart options
+               var options = {
+
+                  hAxis: {
+                     title: 'Day'
+                  },
+                  vAxis: {
+                     title: 'Forex Rate'
+                  },
+                  'width': 650,
+                  'height': 400
+               };
+
+               // Instantiate and draw the chart.
+               var chart = new google.visualization.LineChart(document.getElementById('container'));
+               chart.draw(data, options);
 
             }
             else {
@@ -104,9 +126,10 @@
             }
          }
          request.send();
-        
+
       }
       google.charts.setOnLoadCallback(drawChart);
    </script>
 </body>
+
 </html>

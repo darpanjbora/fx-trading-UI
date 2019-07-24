@@ -16,6 +16,9 @@
     <div class="logo-container">
         <img src="assets/logo.svg">
     </div>
+    <form>
+        <button style="float: left;" type="button" onclick="window.location.href = '/index.html';">Back</button>
+    </form>
     <div class="row">
         <form class="col s12">
             <div class="row">
@@ -33,43 +36,46 @@
                     <button class="btn waves-effect waves-light" type="button" onclick="getData()">Submit</button>
                 </div>
             </div>
-            <div id="base" class="card">
-                <h1>Current Rate</h1>
-                <h3 id='heading'></h3>
-            </div>
-        </form>
-        <form accept="#">
-            <p>
-                <label>
-                    <input class="with-gap" name="group1" id="buy" type="radio" />
-                    <span>Buy</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input class="with-gap" name="group1" id="sell" type="radio" />
-                    <span>Sell</span>
-                </label>
-            </p>
-        </form>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s10">
-                        <i class="material-icons prefix">add_circle</i>
-                        <input id="quantity" type="number" class="validate">
-                        <label for="quantity">Enter the quantity</label>
-                    </div>
-                    <div class="input-field col s2">
-                        <button class="btn waves-effect waves-light" type="button" onclick="storeData()">Submit
-                            <i class="material-icons right">local_grocery_store</i>
-                        </button>
+            <div class="row">
+                <div class="input-field col s12 d-flex justify-content-center">
+                    <div id="base" class="card">
+                        <h1>Current Rate</h1>
+                        <h3 id='heading'></h3>
                     </div>
                 </div>
-        </div>
-        <script src="./jquery.js"></script>
-        <script src="./js/bookTrade.js"></script>
-        <script type="text/javascript" src="./js/materialize.min.js"></script>
+            </div>
+            <form accept="#">
+                <p>
+                    <label>
+                        <input class="with-gap" name="group1" id="buy" type="radio" />
+                        <span>Buy</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input class="with-gap" name="group1" id="sell" type="radio" />
+                        <span>Sell</span>
+                    </label>
+                </p>
+            </form>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s10">
+                            <i class="material-icons prefix">add_circle</i>
+                            <input id="quantity" type="number" class="validate">
+                            <label for="quantity">Enter the quantity</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <button class="btn waves-effect waves-light" type="button" onclick="storeData()">Submit
+                                <i class="material-icons right">local_grocery_store</i>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            <script src="./jquery.js"></script>
+            <script src="./js/bookTrade.js"></script>
+            <script type="text/javascript" src="./js/materialize.min.js"></script>
 </body>
 
 </html>
